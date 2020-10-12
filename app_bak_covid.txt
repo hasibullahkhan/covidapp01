@@ -1,0 +1,90 @@
+import React, { useState, useEffect } from 'react';
+import CovidCard from './CovidCard'
+import './App.css';
+
+function App() {
+  const [query, setQuery] = useState("OM")
+  const [loading, setLoading] = useState(false)
+  const [covid, setCovid] = useState({
+    country: null,
+    countrynm: null,
+    totalcases: null,
+    activecases: null,
+    totalunresolved: null,
+    totaldeaths: null,
+    deathstoday: null,
+    todaycases: null,
+    seriouscases: null,
+    totalrecovered: null,
+    dangerrank: null
+  })
+
+  const data = async (q) => {
+    setLoading(true);
+    const apiRes = await fetch(`https://api.thevirustracker.com/free-api?countryTotal=${q}`);
+    const resJSON = await apiRes.json();
+    return resJSON;
+  }
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    data(query).then(res => {
+      setCovid({
+        country: res.countrydata[0].info.code,
+        countrynm: res.countrydata[0].info.title,
+        totalcases: res.countrydata[0].total_cases,
+        totalrecovered: res.countrydata[0].total_recovered,
+        activecases: res.countrydata[0].total_active_cases,
+        totalunresolved: res.countrydata[0].total_unresolved,
+        totaldeaths: res.countrydata[0].total_deaths,
+        deathstoday: res.countrydata[0].total_new_deaths_today,
+        todaycases: res.countrydata[0].total_new_cases_today,
+        seriouscases: res.countrydata[0].total_serious_cases,
+        dangerrank: res.countrydata[0].total_danger_rank
+      })
+    });
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    data(query).then(res => {
+      setCovid({
+        country: res.countrydata[0].info.code,
+        countrynm: res.countrydata[0].info.title,
+        totalcases: res.countrydata[0].total_cases,
+        totalrecovered: res.countrydata[0].total_recovered,
+        activecases: res.countrydata[0].total_active_cases,
+        totalunresolved: res.countrydata[0].total_unresolved,
+        totaldeaths: res.countrydata[0].total_deaths,
+        deathstoday: res.countrydata[0].total_new_deaths_today,
+        todaycases: res.countrydata[0].total_new_cases_today,
+        seriouscases: res.countrydata[0].total_serious_cases,
+        dangerrank: res.countrydata[0].total_danger_rank
+      })
+    });
+  }, [])
+
+  return (
+
+    <div>
+      {!loading ? (
+        <div>
+          <CovidCard
+            temp={-5} country={covid.country} countrynm={covid.countrynm} activecases={covid.activecases}
+            totalcases={covid.totalcases} totalrecovered={covid.totalrecovered} totalunresolved={covid.totalunresolved}
+            totaldeaths={covid.totaldeaths} deathstoday={covid.deathstoday} todaycases={covid.todaycases}
+            seriouscases={covid.seriouscases} dangerrank={covid.dangerrank}
+          />
+          <form>
+            <input value={query} onChange={(e) => setQuery(e.target.value)} />
+            <button onClick={e => handleSearch(e)}>Search</button>
+          </form>
+        </div>
+      ) : (
+          <div style={{ color: 'black' }} >Loading</div>
+        )}
+    </div>
+  );
+}
+
+export default App;
