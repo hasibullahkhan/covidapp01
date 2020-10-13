@@ -16,7 +16,9 @@ export const Condition = ({ totalcases, totalrecovered, totalunresolved, totalde
             <Reel theme={reelStyle} text={`Active Cases:${activecases}`} />
             <Reel theme={reelStyle} text={`Serious Cases:${seriouscases}`} />
             <Reel theme={reelStyle} text={`Danger Rank:${dangerrank}`} />
-
+            <Reel theme={reelStyle} text={`-------------------------------`} />
+            <Reel theme={reelStyle} text={`Design by: Hasibullah khan`} />
+            <Reel theme={reelStyle} text={`Contact: Hasibpak@gmail.com`} />
         </div>
     )
 }

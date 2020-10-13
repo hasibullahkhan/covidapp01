@@ -49,6 +49,7 @@ const CovidCard = ({ temp, country, countrynm, totalcases, activecases, totalunr
                 <Condition country={country} activecases={activecases} totalcases={totalcases} totalrecovered={totalrecovered}
                     totalunresolved={totalunresolved} totaldeaths={totaldeaths} deathstoday={deathstoday} todaycases={todaycases}
                     seriouscases={seriouscases} dangerrank={dangerrank}
+
                 />
             </Cardstyl>
         </motion.div>

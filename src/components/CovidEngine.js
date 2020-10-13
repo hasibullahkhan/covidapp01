@@ -79,11 +79,13 @@ const CovidEngine = ({ location }) => {
     }
     return (
         <CovidCard
+
             temp={-5} country={covid.country} countrynm={covid.countrynm} activecases={covid.activecases}
             totalcases={covid.totalcases} totalrecovered={covid.totalrecovered} totalunresolved={covid.totalunresolved}
             totaldeaths={covid.totaldeaths} deathstoday={covid.deathstoday} todaycases={covid.todaycases}
             seriouscases={covid.seriouscases} dangerrank={covid.dangerrank}
             getCovid={getCovid}
+
         />
     );
 };
